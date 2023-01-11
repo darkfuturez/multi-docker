@@ -3,21 +3,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t candy/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t fereinte/react-test -f ./client/Dockerfile.dev ./client
   
 script:
-  - docker run -e CI=true candy/react-test npm test 
+  - docker run -e CI=true fereinte/react-test npm test 
 
 after_success:
-  - docker build -t candy/multi-client ./client
-  - docker build -t candy/multi-nginx  ./nginx
-  - docker build -t candy/multi-server ./server
-  - docker build -t candy/multi-worker ./worker
+  - docker build -t fereinte/multi-client ./client
+  - docker build -t fereinte/multi-nginx  ./nginx
+  - docker build -t fereinte/multi-server ./server
+  - docker build -t fereinte/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
 
-  - docker push candy/multi-client
-  - docker push candy/multi-nginx
-  - docker push candy/multi-server
-  - docker push candy/multi-worker
+  - docker push fereinte/multi-client
+  - docker push fereinte/multi-nginx
+  - docker push fereinte/multi-server
+  - docker push fereinte/multi-worker
   
